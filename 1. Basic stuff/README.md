@@ -32,3 +32,7 @@ sudo pacman -S pamac
 ```bash
 sudo pacman -S plasma-wayland-session
 ```
+Fix screen sharing issues for wayland
+```
+sudo pacman -S xdg-desktop-portal
+```
