@@ -1,0 +1,20 @@
+/* Discord theme */
+
+.theme-dark {
+    --background-tertiary: #282828;
+    --background-secondary: #1d2021;
+    --background-secondary-alt: #1d2021;
+    --background-primary: #141617;
+    --channeltextarea-background: #32302f;
+    --background-accent: #a9b665;
+    --background-modifier-hover: #89b482;
+    --background-modifier-active: #a9b665;
+    --background-modifier-selected: #a9b665;
+    --deprecated-card-bg: #333e34;
+    --background-floating: #333e34;
+    --deprecated-quickswitcher-input-background:#32361a;
+    --scrollbar-auto-thumb: #a9b665;
+    --scrollbar-auto-track: #32361a;
+    --scrollbar-thin-thumb: #a9b665;
+    --elevation-low: none;
+}
