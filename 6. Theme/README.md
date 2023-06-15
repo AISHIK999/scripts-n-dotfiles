@@ -24,6 +24,8 @@ spicetify backup apply enable-devtools
 Update the color.ini and user.css in .config/spicetify/Themes/SpicetifyDefault
 
 Credits to [shvedes](https://github.com/shvedes/Gruvboxy)
+
 [.config/spicetify/Themes/SpicetifyDefault/color.ini](../6.%20Theme/SpicetifyDefault/color.ini)
+
 [.config/spicetify/Themes/SpicetifyDefault/user.css](../6.%20Theme/SpicetifyDefault/user.css)
 
