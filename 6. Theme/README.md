@@ -20,8 +20,11 @@ spicetify
 ```bash
 spicetify backup apply enable-devtools
 ```
+```bash 
+spicetify update
+```
 
-Update the color.ini and user.css in .config/spicetify/Themes/SpicetifyDefault
+Update the color.ini and user.css in `.config/spicetify/Themes/SpicetifyDefault`
 
 Credits to [shvedes](https://github.com/shvedes/Gruvboxy)
 
