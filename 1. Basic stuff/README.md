@@ -5,13 +5,10 @@ sudo pacman -Syu
 
 ## Add chaotic-aur repo
 ```bash
-wget https://aur.chaotic.cx/chaotic.gpg
+pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
 ```
 ```bash
-sudo pacman-key --add chaotic.gpg
-```
-```bash
-pacman-key --lsign-key FBA220DFC880C036
+pacman-key --lsign-key 3056513887B78AEB
 ```
 ```bash
 pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
