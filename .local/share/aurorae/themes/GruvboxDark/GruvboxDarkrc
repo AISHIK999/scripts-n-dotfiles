@@ -1,0 +1,46 @@
+[General]
+ActiveFocusedTabColor=40,40,40              ; dark0_hard
+ActiveUnfocusedTabColor=60,56,54            ; dark1
+ActiveTextColor=235,219,178                 ; light2
+ActiveTextShadowColor=255,255,255,255
+InactiveFocusedTabColor=60,56,54            ; dark1
+InactiveUnfocusedTabColor=60,56,54
+InactiveTextColor=146,131,116               ; light4
+InactiveTextShadowColor=255,255,255,200     ; subtle transparency
+LeftButtons=XIA
+RightButtons=
+Shadow=false
+TextShadowOffsetX=1
+TextShadowOffsetY=1
+TitleAlignment=Center
+TitleVerticalAlignment=Center
+UseTextShadow=true
+
+[Layout]
+BorderBottom=1
+BorderLeft=1
+BorderRight=1
+ButtonHeight=24
+ButtonWidth=24
+ButtonMarginTop=1
+ButtonSpacing=12
+ExplicitButtonSpacer=10
+PaddingBottom=10
+PaddingLeft=10
+PaddingRight=10
+PaddingTop=10
+TitleBorderLeft=1
+TitleBorderRight=1
+TitleEdgeBottom=5
+TitleEdgeBottomMaximized=1
+TitleEdgeLeft=5
+TitleEdgeLeftMaximized=1
+TitleEdgeRight=5
+TitleEdgeRightMaximized=1
+TitleEdgeTop=5
+TitleEdgeTopMaximized=1
+TitleHeight=24
+
+[ButtonHover]
+BackgroundColor=213,196,161                ; light1
+BorderColor=251,241,199                    ; light0

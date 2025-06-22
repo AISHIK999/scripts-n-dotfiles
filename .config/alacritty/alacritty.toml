@@ -14,7 +14,7 @@ decorations = "full"
 title = "Alacritty@CachyOS"
 opacity = 1.0
 decorations_theme_variant = "None"
-startup_mode = "Fullscreen"
+startup_mode = "Maximized"
 
 [window.dimensions]
 columns = 100
