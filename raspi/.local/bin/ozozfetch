@@ -1,0 +1,106 @@
+#!/bin/sh
+
+# Credits:
+# https://github.com/info-mono/diyfetch#ozozfetch
+# https://github.com/Chick2D/neofetch-themes#ozozfetch
+
+export CLICOLOR_FORCE=1
+
+# Color Definitions ----------------------------------------------------------------------------------
+
+RESET=$(printf '%b' '\033[0m')
+GREEN=$(printf '%b' '\033[32m')
+YELLOW=$(printf '%b' '\033[33m')
+
+main_color=2
+C_MAIN=$(printf '%b' "\033[38;5;${main_color}m")
+C_USER=$(printf '%b' "\033[0;1;38;5;${main_color}m")
+C_HOST=$(printf '%b' "\033[1;38;5;${main_color}m")
+
+# Gather System Info ---------------------------------------------------------------------------------
+
+my_model=$(tr -d '\0' < /proc/device-tree/model 2>/dev/null)
+my_cpu=$(awk -F': ' '/model name/{print $2; exit} /Model/{print $2; exit}' /proc/cpuinfo)
+# my_gpu="VideoCore ($(vcgencmd get_mem gpu 2>/dev/null | cut -d= -f2))"
+my_gpu="VideoCore V3D VII"
+my_disk=$(df -h / | awk 'NR==2{print $3"/"$2" ("$5")"}')
+my_memory=$(free -h | awk '/^Mem:/{print $3"/"$2}')
+my_os=$(. /etc/os-release && echo "${PRETTY_NAME}")
+my_packages="$(dpkg --get-selections 2>/dev/null | wc -l) (dpkg)"
+my_terminal="${TERM}"
+my_shell=$(basename "${SHELL}")
+
+# Prepare ------------------------------------------------------------------------------------------
+
+info=$(gum style "${C_MAIN} ${C_USER}${USER}${RESET}@${C_HOST}$(hostname)${RESET}
+├─ ${C_MAIN} ${RESET} ${my_model}
+│  ├─ ${C_MAIN}󰻠 ${RESET} ${my_cpu}
+│  ├─ ${C_MAIN} ${RESET} ${my_gpu}
+│  ├─ ${C_MAIN} ${RESET} ${my_disk}
+│  ├─ ${C_MAIN} ${RESET} ${my_memory}
+│  └─ ${C_MAIN}󰒲 ${RESET} $(uptime -p | cut -c 4-)
+└─ ${C_MAIN} ${RESET} ${my_os}
+   ├─ ${C_MAIN} ${RESET} ${my_packages}
+   ├─ ${C_MAIN} ${RESET} ${my_terminal}
+   └─ ${C_MAIN} ${RESET} ${my_shell}")
+
+art=$(gum style "       ${GREEN}&&${RESET}
+      ${GREEN}&&&&&${RESET}
+    ${GREEN}&&&${YELLOW}\/${GREEN}& &&&${RESET}
+   ${GREEN}&&${YELLOW}|,/  |/${GREEN}& &&${RESET}
+    ${GREEN}&&${YELLOW}/   /  /_${GREEN}&  &&${RESET}
+      ${YELLOW}\  {  |_____/_${GREEN}&${RESET}
+      ${YELLOW}{  / /          ${GREEN}&&&${RESET}
+      ${YELLOW}.\`. \{___\________\/_\}${RESET}
+       ${YELLOW}\} \}\{       \\${RESET}
+       ${YELLOW}}\{\{         \____${GREEN}&${RESET}
+      ${YELLOW}\{\}\{           \`${GREEN}&${YELLOW}\\${GREEN}&&${RESET}
+      ${YELLOW}{{}             ${GREEN}&&${RESET}
+${YELLOW}, -=-~{ .-^- _${RESET}
+      ${YELLOW}\`.${RESET}")
+
+std_colors=""
+for code in 30 31 32 33 34 35 36 37; do
+	std_colors="${std_colors}$(printf '%b' "\033[0;${code}m")███"
+done
+
+bright_colors=""
+for code in 90 91 92 93 94 95 96 97; do
+	bright_colors="${bright_colors}$(printf '%b' "\033[0;1;${code}m")███"
+done
+
+color=$(gum style "${std_colors}${RESET}
+${bright_colors}${RESET}")
+
+
+# Display ------------------------------------------------------------------------------------------
+
+terminal_size=$(stty size)
+terminal_height=${terminal_size% *}
+terminal_width=${terminal_size#* }
+
+prompt_height=${PROMPT_HEIGHT:-1}
+
+print_test() {
+	no_color=$(printf '%b' "${1}" | sed -e 's/\x1B\[[0-9;]*[JKmsu]//g')
+
+	[ "$(printf '%s' "${no_color}" | wc --lines)" -gt $(( terminal_height - prompt_height )) ] && return 1
+	[ "$(printf '%s' "${no_color}" | wc --max-line-length)" -gt "${terminal_width}" ] && return 1
+
+	gum style --align center --width="${terminal_width}" "${1}" ''
+	printf '%b' "\033[A"
+
+	exit 0
+}
+
+
+# Default layout
+group_info_color=$(gum join --vertical --align center "${info}" '' "${color}")
+print_test "$(gum join --horizontal --align center "${art}" '    ' "${group_info_color}")"
+
+# Other layout
+print_test "$(gum join --horizontal --align center "${art}" '    ' "${info}")"
+print_test "${group_info_color}"
+print_test "${info}"
+
+exit 1
