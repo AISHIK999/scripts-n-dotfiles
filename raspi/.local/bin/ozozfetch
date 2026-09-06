@@ -20,9 +20,8 @@ C_HOST=$(printf '%b' "\033[1;38;5;${main_color}m")
 # Gather System Info ---------------------------------------------------------------------------------
 
 my_model=$(tr -d '\0' < /proc/device-tree/model 2>/dev/null)
-my_cpu=$(awk -F': ' '/model name/{print $2; exit} /Model/{print $2; exit}' /proc/cpuinfo)
-# my_gpu="VideoCore ($(vcgencmd get_mem gpu 2>/dev/null | cut -d= -f2))"
-my_gpu="VideoCore V3D VII"
+my_cpu=$(echo "$(tr -d '\0' < /proc/device-tree/compatible | awk -F, '{print $NF}') $(lscpu | awk -F: '/Model name/ {print $2}' | xargs)")
+my_gpu="VideoCore ($(/sbin/modinfo v3d | awk -F: '/description/ {gsub(/ Driver| driver/, "", $2); print $2}' | xargs))"
 my_disk=$(df -h / | awk 'NR==2{print $3"/"$2" ("$5")"}')
 my_memory=$(free -h | awk '/^Mem:/{print $3"/"$2}')
 my_os=$(. /etc/os-release && echo "${PRETTY_NAME}")
